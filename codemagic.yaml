@@ -7,21 +7,16 @@ workflows:
       android_signing:
         - kiosk_keystore
       groups:
-        - android_credentials
+        - google_credentials
       vars:
         PACKAGE_NAME: "net.synergy360.kiosk"
-        APP_NAME: "360 Synergy Kiosk"
+        GOOGLE_PLAY_TRACK: internal
       java: 11
     triggering:
       events:
         - push
-        - tag
-        - pull_request
       branch_patterns:
         - pattern: 'main'
-          include: true
-          source: true
-        - pattern: 'develop'
           include: true
           source: true
     scripts:
@@ -29,35 +24,18 @@ workflows:
         script: | 
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
       
-      - name: Get project version
-        script: | 
-          VERSION_NAME=$(grep "versionName" app/build.gradle | awk '{print $2}' | tr -d '"')
-          echo "VERSION_NAME=$VERSION_NAME" >> $CM_ENV
-      
-      - name: Build Android Debug APK
-        script: | 
-          ./gradlew assembleDebug
-      
-      - name: Build Android Release APK
+      - name: Build Android APK
         script: | 
           ./gradlew assembleRelease
     
     artifacts:
       - app/build/outputs/**/*.apk
       - app/build/outputs/**/*.aab
-      - app/build/outputs/**/mapping.txt
     
     publishing:
       email:
         recipients:
-          - build-notifications@360synergy.net
-        notify:
-          success: true
-          failure: true
-      
-      slack:
-        channel: '#android-builds'
-        notify_on_build_start: true
+          - your-email@example.com
         notify:
           success: true
           failure: true
