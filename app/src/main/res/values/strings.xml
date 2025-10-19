@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">360 Synergy Kiosk</string>
+    <string name="reconnecting">Reconnecting to network…</string>
+    <string name="exit_kiosk_title">Exit Kiosk Mode?</string>
+    <string name="exit_kiosk_message">Are you sure you want to exit kiosk mode?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>
